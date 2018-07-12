@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EcommerceCMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SupplierSourceId" Type="int" Nullable="false" />
+          <Property Name="Logo" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CSVUrl" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ProductsImported" Type="int" Nullable="false" />
+          <Property Name="ProductsNotImported" Type="int" Nullable="false" />
+          <Property Name="LastDownload" Type="datetime" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupplierSource">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Logo" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="FileSample" Type="nvarchar" MaxLength="250" />
+          <Property Name="CSVColumns" Type="nvarchar" MaxLength="1000" />
+          <Property Name="DBColumns" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Website">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Logo" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ServerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DatabaseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Supplier__Suppli__373B3228">
+          <End Role="SupplierSource" Type="Self.SupplierSource" Multiplicity="1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierSource">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="SupplierSourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EcommerceCMSModelStoreContainer">
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplierSource" EntityType="Self.SupplierSource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Website" EntityType="Self.Website" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Supplier__Suppli__373B3228" Association="Self.FK__Supplier__Suppli__373B3228">
+            <End Role="SupplierSource" EntitySet="SupplierSource" />
+            <End Role="Supplier" EntitySet="Supplier" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EcommerceCMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupplierSourceId" Type="Int32" Nullable="false" />
+          <Property Name="Logo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CSVUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductsImported" Type="Int32" Nullable="false" />
+          <Property Name="ProductsNotImported" Type="Int32" Nullable="false" />
+          <Property Name="LastDownload" Type="DateTime" Precision="3" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SupplierSource" Relationship="Self.FK__Supplier__Suppli__373B3228" FromRole="Supplier" ToRole="SupplierSource" />
+        </EntityType>
+        <EntityType Name="SupplierSource">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Logo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileSample" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CSVColumns" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DBColumns" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK__Supplier__Suppli__373B3228" FromRole="SupplierSource" ToRole="Supplier" />
+        </EntityType>
+        <EntityType Name="Website">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Logo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ServerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DatabaseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Supplier__Suppli__373B3228">
+          <End Role="SupplierSource" Type="Self.SupplierSource" Multiplicity="1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierSource">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="SupplierSourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EcommerceCMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <EntitySet Name="SupplierSources" EntityType="Self.SupplierSource" />
+          <EntitySet Name="Websites" EntityType="Self.Website" />
+          <AssociationSet Name="FK__Supplier__Suppli__373B3228" Association="Self.FK__Supplier__Suppli__373B3228">
+            <End Role="SupplierSource" EntitySet="SupplierSources" />
+            <End Role="Supplier" EntitySet="Suppliers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EcommerceCMSModelStoreContainer" CdmEntityContainer="EcommerceCMSEntities">
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="EcommerceCMSModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SupplierSourceId" ColumnName="SupplierSourceId" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CSVUrl" ColumnName="CSVUrl" />
+                <ScalarProperty Name="ProductsImported" ColumnName="ProductsImported" />
+                <ScalarProperty Name="ProductsNotImported" ColumnName="ProductsNotImported" />
+                <ScalarProperty Name="LastDownload" ColumnName="LastDownload" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplierSources">
+            <EntityTypeMapping TypeName="EcommerceCMSModel.SupplierSource">
+              <MappingFragment StoreEntitySet="SupplierSource">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="FileSample" ColumnName="FileSample" />
+                <ScalarProperty Name="CSVColumns" ColumnName="CSVColumns" />
+                <ScalarProperty Name="DBColumns" ColumnName="DBColumns" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Websites">
+            <EntityTypeMapping TypeName="EcommerceCMSModel.Website">
+              <MappingFragment StoreEntitySet="Website">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+                <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

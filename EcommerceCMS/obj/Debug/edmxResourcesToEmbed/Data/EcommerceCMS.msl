@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EcommerceCMSModelStoreContainer" CdmEntityContainer="EcommerceCMSEntities">
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="EcommerceCMSModel.Supplier">
+        <MappingFragment StoreEntitySet="Supplier">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SupplierSourceId" ColumnName="SupplierSourceId" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="CSVUrl" ColumnName="CSVUrl" />
+          <ScalarProperty Name="ProductsImported" ColumnName="ProductsImported" />
+          <ScalarProperty Name="ProductsNotImported" ColumnName="ProductsNotImported" />
+          <ScalarProperty Name="LastDownload" ColumnName="LastDownload" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierSources">
+      <EntityTypeMapping TypeName="EcommerceCMSModel.SupplierSource">
+        <MappingFragment StoreEntitySet="SupplierSource">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="FileSample" ColumnName="FileSample" />
+          <ScalarProperty Name="CSVColumns" ColumnName="CSVColumns" />
+          <ScalarProperty Name="DBColumns" ColumnName="DBColumns" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Websites">
+      <EntityTypeMapping TypeName="EcommerceCMSModel.Website">
+        <MappingFragment StoreEntitySet="Website">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+          <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

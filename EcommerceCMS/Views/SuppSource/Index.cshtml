@@ -1,0 +1,98 @@
+﻿@using EcommerceCMS.Data;
+@model List<SupplierSource>
+
+@{
+    ViewBag.Title = "Supplier Sources";
+}
+
+@section scripts{
+    <script src="../scripts/suppSources.js"></script>
+}
+
+<span class="btn btn-sm btn-primary btnAdd marg3 pull-right"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Supplier Source</span>
+
+<table class="table table-striped">
+    <tr>
+        <th>#</th>
+        <th>logo</th>
+        <th>title</th>
+        <th>url</th>
+        <th>file sample</th>
+        <th>columns</th>
+        <th class="text-center">Actions</th>
+    </tr>
+    @{
+        int iCnt = 0;
+
+        foreach (SupplierSource src in Model)
+        {
+            iCnt++;
+
+            <tr>
+                <td>@iCnt</td>
+                <td>
+                    <img src="@src.Logo" style="width:200px;text-align:left;background-color:black;" />
+                    <input type="text" class="form-control pad2 nomarg" value="@src.Logo" />
+                </td>
+                <td style="vertical-align:bottom;"><input type="text" class="form-control pad2 nomarg" value="@src.Title" /></td>
+                <td style="vertical-align:bottom;"><input type="text" class="form-control pad2 nomarg" value="@src.Url" /></td>
+                <td style="vertical-align:bottom;"><a target="_blank" href="#"><span class="glyphicon glyphicon-file"></span>&nbsp;CSV Sample</a></td>
+                <td style="vertical-align:bottom;"><a target="_blank" href=""><span class="glyphicon glyphicon-list"></span>&nbsp;Column Mapping</a></td>
+                <td class="text-center" style="vertical-align:bottom;">
+                    <span class="btn btn-sm btn-info spanFileFormat" data-id="@src.Id" data-toggle="modal" data-target="#modFileFormat" data-id="@src.Id"><span class="glyphicon glyphicon-file"></span>&nbsp;manage file format</span>
+                    <span class="btn btn-sm btn-info spanRemSrc" data-id="@src.Id"><span class="glyphicon glyphicon-remove"></span>&nbsp;remove</span>
+                </td>
+            </tr>
+
+        }
+    }
+</table>
+
+<p>&nbsp;</p>
+<span class="btn btn-sm btn-primary btnSave marg3 pull-right"><span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Save Changes</span>
+
+<!-- Modal -->
+<div id="modFileFormat" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">File Formatter</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <th>CSV File</th>
+                        <td><input type="file" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                        <th>Field Mapper</th>
+                        <td>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>File Field</th>
+                                    <th>DB Field</th>
+                                </tr>
+                                <tr>
+                                    <td>Id</td>
+                                    <td><select class="form-control">
+                                            <option value="">Id</option>
+                                            <option value="">Name</option>
+                                            <option value="">Description</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

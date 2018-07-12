@@ -1,0 +1,52 @@
+﻿@using EcommerceCMS.Data;
+@model List<Supplier>
+
+@{
+    ViewBag.Title = "Suppliers";
+}
+
+@section scripts{
+    <script src="../scripts/suppliers.js"></script>
+}
+
+<span class="btn btn-sm btn-primary btnAdd marg3 pull-right"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Supplier</span>
+
+<table class="table table-striped">
+    <tr>
+        <th>#</th>
+        <th>logo</th>
+        <th>title</th>
+        <th>csv url</th>
+        <th>supplier source</th>
+        <th class="text-center">last download</th>
+        <th class="text-center">Actions</th>
+    </tr>
+    @{
+        int iCnt = 0;
+
+        foreach (Supplier supp in Model)
+        {
+            iCnt++;
+
+            <tr>
+                <td>@iCnt</td>
+                <td>
+                    <img src="@supp.Logo" style="width:200px;" />
+                    <input type="text" class="form-control pad2 nomarg" value="@supp.Logo" />
+                </td>
+                <td style="vertical-align:bottom;"><input type="text" class="form-control pad2 nomarg" value="@supp.Title" /></td>
+                <td style="vertical-align:bottom;"><input type="text" class="form-control pad2 nomarg" value="@supp.CSVUrl" /></td>
+                <td style="vertical-align:bottom;"><input type="text" class="form-control pad2 nomarg" value="@supp.SupplierSource.Title" /></td>
+                <td class="text-center" style="vertical-align:bottom;"><a target="_blank" href="#"><span class="glyphicon glyphicon-list"></span>&nbsp;Report</a></td>
+                <td class="text-center" style="vertical-align:bottom;">
+                    <span class="btn btn-sm btn-info spanRenCat" data-id="@supp.Id"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;download products</span>
+                    <span class="btn btn-sm btn-info spanDelCat" data-id="@supp.Id"><span class="glyphicon glyphicon-remove"></span>&nbsp;remove</span>
+                </td>
+            </tr>
+
+        }
+    }
+</table>
+
+<p>&nbsp;</p>
+<span class="btn btn-sm btn-primary btnSave marg3 pull-right"><span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Save Changes</span>

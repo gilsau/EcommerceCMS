@@ -1,0 +1,55 @@
+﻿@using EcommerceCMS.Data;
+@model List<Website>
+
+@{
+    ViewBag.Title = "Websites";
+}
+
+@section scripts{
+    <script src="../scripts/sites.js"></script>    
+}
+
+<span class="btn btn-sm btn-primary btnAdd marg3 pull-right"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Website</span>
+
+<table class="table table-striped">
+    <tr>
+        <th>#</th>
+        <th>logo</th>
+        <th>title</th>
+        <th>url</th>
+        <th>db server</th>
+        <th>database</th>
+        <th>uid</th>
+        <th>pwd</th>
+        <th class="text-center">Actions</th>
+    </tr>
+    @{
+        int iCnt = 0;
+
+        foreach (Website web in Model)
+        {
+            iCnt++;
+
+    <tr>
+        <td>@iCnt</td>
+        <td><img src="@web.Logo" style="width:200px;text-align:left;background-color:black;" />
+            <input type="text" class="form-control pad2 nomarg" value="@web.Logo" />
+        </td>
+        <td style="vertical-align:bottom;"><input type="text" class="form-control pad2 nomarg" value="@web.Title" /></td>
+        <td style="vertical-align:bottom;"><input type="text" class="form-control pad2 nomarg" value="@web.Url" /></td>
+        <td style="vertical-align:bottom;"><input type="text" class="form-control pad2 nomarg" value="@web.ServerName" /></td>
+        <td style="vertical-align:bottom;"><input type="text" class="form-control pad2 nomarg" value="@web.DatabaseName" /></td>
+        <td style="vertical-align:bottom;"><input type="text" class="form-control pad2 nomarg" value="@web.Username" /></td>
+        <td style="vertical-align:bottom;"><input type="text" class="form-control pad2 nomarg" value="@web.Password" /></td>
+        <td class="text-center" style="vertical-align:bottom;">
+            <span class="btn btn-sm btn-info spanDelCat" data-id="@web.Id"><span class="glyphicon glyphicon-transfer"></span>&nbsp;sync inventory</span>
+            <span class="btn btn-sm btn-info spanDelCat" data-id="@web.Id"><span class="glyphicon glyphicon-remove"></span>&nbsp;remove</span>
+        </td>
+    </tr>
+
+        }
+    }
+</table>
+
+<p>&nbsp;</p>
+<span class="btn btn-sm btn-primary btnSave marg3 pull-right"><span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Save Changes</span>

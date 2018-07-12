@@ -1,0 +1,223 @@
+﻿@using EcommerceCMS.Data
+@using EcommerceCMS.Models
+@{
+    ViewBag.Title = "Categories & Products";
+
+    int categorySource = Request.Form["categorySource"] != null ? int.Parse(Request.Form["categorySource"].ToString()) : 1;
+    int websiteId = Request.Form["websiteId"] != null ? int.Parse(Request.Form["websiteId"].ToString()) : 0;
+    string websiteLogo = Request.Form["websiteId"] != null ? ((List<Website>)ViewBag.Websites).SingleOrDefault(w => websiteId == w.Id).Logo : string.Empty;
+    int supplierId = Request.Form["supplierId"] != null ? int.Parse(Request.Form["supplierId"].ToString()) : 0;
+}
+
+        @section scripts{
+            <script src="../scripts/categories.js"></script>
+        }
+
+            <form id="frmMain" method="post" action="../categories">
+
+                <table class="table table-striped">
+                    <tr>
+                        <th>Categories From Where?</th>
+
+                        @if (ViewBag.Websites != null)
+            {
+                <th id="thWebTitle">Which Website?</th>
+}
+else if (ViewBag.Suppliers != null)
+{
+            <th id="thSuppTitle">Which Supplier?</th>
+}
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="CategorySource" class="form-control">
+                                <option value="1" @if (categorySource == 1) { <text> selected</text> }>From Websites</option>
+                                <option value="2" @if (categorySource == 2) { <text> selected</text> }>From Suppliers</option>
+                            </select>
+                        </td>
+
+                        @if (ViewBag.Websites != null)
+            {
+                <td id="tdWebsites">
+                    <select name="WebsiteId" class="form-control">
+                        <option value="0"></option>
+                        @foreach (Website website in ((List<Website>)ViewBag.Websites))
+            {
+                <option value="@website.Id" @if (websiteId == website.Id) { <text> selected</text> }>@website.Title</option>
+}
+                    </select>
+                </td>
+}
+else if (ViewBag.Suppliers != null)
+{
+            <td id="tdSuppliers">
+                <select name="SupplierId" class="form-control">
+                    <option value="0"></option>
+                    @foreach (Supplier supplier in ((List<Supplier>)ViewBag.Suppliers))
+        {
+            <option value="@supplier.Id" @if (supplierId == supplier.Id) { <text> selected</text> }>@supplier.Title</option>
+}
+                </select>
+            </td>
+}
+                    </tr>
+                </table>
+                
+                <span class="btn btn-sm btn-primary spanGetTopCats pull-right" data-level="1" data-id="0" data-name="TOP CATAEGORIES"><span class="glyphicon glyphicon-list"></span>&nbsp;GET TOP CATEGORIES</span>
+                <p>&nbsp;</p>
+
+                <table>
+                    <tr>
+                        <td>
+                            @if (websiteId > 0)
+                {
+                    <img src="@websiteLogo" style="width:250px;" />
+    }
+                        </td>
+                        <td style="padding:2px;vertical-align:bottom;">
+                            @if (ViewBag.Categories != null && ViewBag.Products == null)
+                {
+                            <span class="btn btn-sm btn-primary btnAdd"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Category</span>
+    }
+                        </td>
+                    </tr>
+                </table>
+                <p>&nbsp;</p>
+
+                @if (ViewBag.Products != null)
+                {
+                <span class="btn btn-md btn-info spanCopyProds marg3"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;copy</span>
+                <span class="btn btn-md btn-info spanMoveProds marg3"><span class="glyphicon glyphicon-transfer"></span>&nbsp;move</span>
+                <span class="btn btn-md btn-info spanRemoveProds marg3"><span class="glyphicon glyphicon-remove"></span>&nbsp;remove</span>
+
+                <table class="pull-right">
+                    <tr>
+                        <th>Sort By&nbsp;</th>
+                        <td>
+                            <select class="form-control">
+                                <option value="">Name</option>
+                                <option value="">SKU</option>
+                                <option value="">Wholesale Price (low to high)</option>
+                                <option value="">Wholesale Price (high to low)</option>
+                                <option value="">Retail Price (low to high)</option>
+                                <option value="">Retail Price (high to low)</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                }
+                else if (ViewBag.Categories != null) {
+                <table class="pull-right">
+                    <tr>
+                        <th>Sort By&nbsp;</th>
+                        <td>
+                            <select class="form-control">
+                                <option value="">Name</option>
+                                <option value="">Subcategories Count</option>
+                                <option value="">Products Count</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                }
+
+
+
+                @if (ViewBag.Products != null || ViewBag.Categories != null)
+    {
+            <span id="H3BC" style="font-size:20px;font-weight:bold;">
+                @Html.Raw("&nbsp;&nbsp;&nbsp;" + Request.Form["BreadCrumbs"].ToString().Replace("&lt;", "<").Replace("&gt;", ">"))
+            </span>
+
+if (ViewBag.Products != null)
+{
+            <span style="font-size:18px;">(@ViewBag.Products.Count)</span>
+}
+else if (ViewBag.Categories != null)
+{
+            <span style="font-size:18px;">(@ViewBag.Categories.Count)</span>
+}
+
+}
+
+                @if (ViewBag.Products == null && ViewBag.Categories != null)
+    {
+            <table id="tblCategories" class="table table-striped table-hover">
+                <tr>
+                    <th>#</th>
+                    <th>Category</th>
+                    <th>Subcategories</th>
+                    <th>Products</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+
+                @{ int catCnt = 0;
+        foreach (CategoryModel cat in ViewBag.Categories)
+        {
+            catCnt++;
+            <tr>
+                <td>@catCnt</td>
+                <th>
+                    @cat.Name<br />
+                    <img src="@cat.Logo" style="height:100px;" />
+                </th>
+                <td>@Html.Raw(cat.SubCats)</td>
+                <td>@cat.ProductCount</td>
+                <td class="text-center">
+                    @if (cat.SubCats.Count() > 0)
+        {
+                    <span class="btn btn-sm btn-info spanMngSubCats" data-level="2" data-id="@cat.Id" data-name="@cat.Name"><span class="glyphicon glyphicon-list"></span>&nbsp;manage subcategories</span>
+}
+else
+{
+                    <span class="btn btn-sm btn-info spanMngProds" data-level="3" data-id="@cat.Id" data-name="@cat.Name"><span class="glyphicon glyphicon-list"></span>&nbsp;manage products</span>
+}
+                    <span class="btn btn-sm btn-info spanRenCat" data-id="@cat.Id"><span class="glyphicon glyphicon-edit"></span>&nbsp;rename</span>
+                    <span class="btn btn-sm btn-info spanDelCat" data-id="@cat.Id"><span class="glyphicon glyphicon-remove"></span>&nbsp;remove</span>
+                </td>
+            </tr>
+}
+                }
+            </table>
+}
+
+                @if (ViewBag.Products != null)
+    {
+            <table id="tblCategories" class="table table-striped table-hover">
+                <tr>
+                    <th>#</th>
+                    <th class="text-left"><input type="checkbox" id="selProdChk" /> Product</th>
+                    <th>Description</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+
+                @{ int prodCnt = 0;
+
+        foreach (ProductModel prod in ViewBag.Products)
+        {
+            prodCnt++;
+            <tr>
+                <td>@prodCnt)</td>
+                <th class="text-left">
+                    <input type="checkbox" class="prodChk" data-id="@prod.Id" data-sku="@prod.Sku" />&nbsp;<span style="font-weight:100;">@prod.Sku</span><br />
+                    @prod.Name<br />
+                    <img src="@prod.ImgUrl" style="max-height:100px;max-width:100px;" /><br />
+                    W (@string.Format("{0:C}", prod.Wholesale))&nbsp;R (@string.Format("{0:C}", prod.Retail))
+                </th>
+                <td><div style="overflow:scroll;width:100%;height:100px;border:solid 1px silver;">@Html.Raw(prod.Description)</div></td>
+                <td class="text-center" nowrap>
+                    <span class="btn btn-sm btn-info spanEditCat" data-id="@prod.Id"><span class="glyphicon glyphicon-edit"></span>&nbsp;edit</span>
+                    <span class="btn btn-sm btn-info spanRenCat" data-id="@prod.Id"><span class="glyphicon glyphicon-remove"></span>&nbsp;remove</span>
+                </td>
+            </tr>
+}
+                }
+            </table>
+}
+
+                <input type="hidden" name="CategoryId" />
+                <input type="hidden" name="CategoryName" />
+                <input type="hidden" name="ParentCategoryId" />
+                <input type="hidden" name="ParentCategoryName" />
+                <input type="hidden" name="BreadCrumbs" value="@(Request.Form["BreadCrumbs"] != null ? Request.Form["BreadCrumbs"].ToString() : string.Empty)" />
+            </form>

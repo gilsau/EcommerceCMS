@@ -1,0 +1,14 @@
+﻿@model Dictionary<string, int>
+@{
+    ViewBag.Title = "   Dashboard";
+}
+
+<div class="jumbotron">
+    <h1>ECOMMERCE CMS</h1>
+    <p class="lead">MANAGE Supplier Sources, Suppliers, Websites, Categories, Products and Inventory</p>
+    <p><a href="~/suppSource/">Supplier Sources (@Model["sources"].ToString())</a></p>
+    <p><a href="~/suppliers/">Suppliers (@Model["suppliers"].ToString())</a></p>
+    <p><a href="~/sites/">Websites (@Model["websites"].ToString())</a></p>
+    <p><a href="~/categories/">Categories & Products <span class="smalltext">Website Categories(@Model["categories_web"].ToString())</span> | <span class="smalltext">Supplier Categories(@Model["categories_supp"].ToString())</span></a></p>
+    <p><a href="~/reports/">Reports</a></p>
+</div>

@@ -1,0 +1,38 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.nopad {
+    padding: 0px;
+}
+
+.pad2 {
+    padding: 2px;
+}
+
+.nomarg {
+    margin: 0px;
+}
+
+.marg3 {
+    margin: 3px;
+}
+
+.btmPad5 {
+    padding: 5px 0px 5px 0px;
+}
+
+.radius50 {
+    border-radius: 50%;
+}
+
+.smalltext {
+    font-size: 14px;
+}
